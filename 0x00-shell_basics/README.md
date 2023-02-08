@@ -1,1 +1,1 @@
-# Current directory command
+#current working directory
