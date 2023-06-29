@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-#Prints bad luck in three contries
+# Displays numbers from 1 to 20 in addition to:
+#   "bad luck from China" for the 4th iteration
+#   "bad luck from Japan" for the 9th iteration
+#   "bad luck from Italy" for the 17th loop iteration
 c=1
 while [ $c -lt 21 ]; do
 	case $c in
