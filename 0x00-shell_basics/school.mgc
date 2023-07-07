@@ -1,1 +1,2 @@
-0 s SCHOOL School data
+0	string SCHOOL this is a school data file
+!:mime application/octet-stream
