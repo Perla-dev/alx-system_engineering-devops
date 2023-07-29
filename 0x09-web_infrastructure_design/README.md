@@ -36,3 +36,28 @@ What is the role of the web server (Nginx)? Nginx accepts the HTTP request from 
 * `Security Issues:` Without a firewall, our servers are vulnerable to unauthorized access. Additionally, if we don't use HTTPS, the data exchanged between the user and our servers is not encrypted and could be intercepted.
 
 * `No Monitoring:` Without a system to monitor the performance and health of our servers, we might not become aware of issues until they have caused significant problems.
+
+## Task 2: Secured and monitored web infrastructure
+
+2- `Firewalls:` Firewalls are crucial for our infrastructure security. They provide a barrier against unauthorized access, monitor, and control network traffic based on predefined security rules.
+3- `SSL Certificate:` Serving traffic over HTTPS is essential to ensure all data exchanged between users and our servers is encrypted and secure. It prevents data breaches and enhances user trust in our website.
+4- `Monitoring Clients:` These are used for monitoring server performance and identifying potential issues in real-time. This can aid in proactive problem resolution, capacity planning, and maintaining an optimum user experience.
+The monitoring tool collects data through the installed clients on the servers. They gather metrics like CPU usage, memory consumption, network statistics, and log files, then send them to a centralized monitoring service for analysis.
+
+* To monitor your web server QPS (Queries Per Second), you should configure your monitoring client to collect this specific metric from your web server. This data can help you understand your web server's load and performance.
+
+### issues:
+
+* `SSL Termination at Load Balancer:` If the traffic between the load balancer and the application servers isn't encrypted, it's vulnerable to attacks within the internal network.
+
+* `Single MySQL Write Server:` If this server fails, no application can make data changes until the server is restored, causing potential service disruption.
+
+* `Identical Server Components:` Servers with identical roles (database, web server, application server) can lead to inefficient resource use. Dedicating specific servers to specific tasks can help in optimizing resource use and performance.
+
+## Task 3: Scale up
+
+1- `Additional Server:` With only one server, the system would have a single point of failure. By adding an additional server, we are adding redundancy, thereby improving the system's reliability. It also improves performance as now the load can be distributed between servers.
+
+2- `Load Balancer (HAproxy) Cluster:` The clustering of HAproxy is to ensure high availability and reliability. If one load balancer goes down, the other can take its place, keeping the system up and running. It also helps in distributing the load among multiple servers, improving performance.
+
+3- `Split Components:` Splitting components into their own servers makes it easier to manage and scale the system. If there's a high load on the application, you can simply scale up the application server without having to touch the database or web server, and vice versa. It also improves security, as an issue in one server won't directly affect the other servers.
