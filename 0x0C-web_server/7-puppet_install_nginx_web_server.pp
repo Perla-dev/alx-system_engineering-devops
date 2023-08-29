@@ -26,8 +26,18 @@ file { '/etc/nginx/sites-available/default':
             root   /var/www/html;
             index  index.html;
             try_files $uri /index.html;
+        }
 
-            # Custom response containing "Hello World!"
+        location /redirect_me {
+            return 301 http://example.com/new_page;
+        }
+
+        location = /new_page {
+            root   /var/www/html;
+            index  index.html;
+        }
+
+        location /hello {
             add_header Content-Type text/html;
             return 200 "Hello World!";
         }
@@ -36,3 +46,7 @@ file { '/etc/nginx/sites-available/default':
   require => Package['nginx'],
   notify  => Service['nginx'],
 }
+
+
+
+
