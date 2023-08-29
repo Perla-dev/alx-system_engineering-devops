@@ -2,31 +2,37 @@ exec { 'update packages':
   command => '/usr/bin/apt-get update'
 }
 
-exec { 'restart nginx':
-  command => '/usr/sbin/service nginx restart',
-  require => Package['nginx']
-}
-
+# Ensure the Nginx package is installed
 package { 'nginx':
-  ensure  => 'installed',
-  require => Exec['update packages']
+  ensure => 'installed',
 }
 
-file { '/var/www/html/index.html':
-  content => "Hello World!\n",
+# Ensure the Nginx service is enabled and running
+service { 'nginx':
+  ensure  => 'running',
+  enable  => true,
+  require => Package['nginx'],
 }
 
-file { '/var/www/html/404.html':
-  content => "Ceci n'est pas une page\n",
-}
+# Create an Nginx configuration file
+file { '/etc/nginx/sites-available/default':
+  ensure  => 'file',
+  content => '
+    server {
+        listen 80;
+        server_name _;
 
-$link = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
-file_line { 'Set 301 redirection':
-  ensure   => 'present',
-  after    => 'server_name\ _;',
-  path     => '/etc/nginx/sites-available/default',
-  multiple => true,
-  line     => '\trewrite ^/redirect_me/$ ${link} permanent;',
-  notify   => Exec['restart nginx'],
-  require  => File['/var/www/html/index.html']
+        location / {
+            root   /var/www/html;
+            index  index.html;
+            try_files $uri /index.html;
+
+            # Custom response containing "Hello World!"
+            add_header Content-Type text/html;
+            return 200 "Hello World!";
+        }
+    }
+  ',
+  require => Package['nginx'],
+  notify  => Service['nginx'],
 }
