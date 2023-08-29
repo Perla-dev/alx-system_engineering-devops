@@ -19,28 +19,20 @@ file { '/etc/nginx/sites-available/default':
   ensure  => 'file',
   content => '
     server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-               root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
+        listen 80;
         server_name _;
-        location / {
-                try_files \$uri \$uri/ =404;
-        }
-        error_page 404 /404.html;
-        location  /404.html {
-            internal;
-        }
 
-        if (\$request_filename ~ redirect_me){
-            rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
+        location / {
+            root   /var/www/html;
+            index  index.html;
+            try_files $uri /index.html;
+
+            # Custom response containing "Hello World!"
+            add_header Content-Type text/html;
+            return 200 "Hello World!";
         }
-}
-',
+    }
+  ',
   require => Package['nginx'],
   notify  => Service['nginx'],
 }
-
-
-
-
