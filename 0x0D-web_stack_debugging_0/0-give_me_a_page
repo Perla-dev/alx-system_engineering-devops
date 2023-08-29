@@ -1,0 +1,2 @@
+docker exec -it 9de73a754dbb /bin/bash
+service apache2 start
