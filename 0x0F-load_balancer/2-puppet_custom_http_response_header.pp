@@ -1,3 +1,4 @@
+# config using puppet
 exec { 'command':
   command  => 'apt-get -y update;
   apt-get -y install nginx;
