@@ -4,7 +4,6 @@
 NGINX_DEFAULT_CONF="/etc/nginx/sites-available/default"
 WEB_ROOT="/var/www/html"
 
-set -e
 
 sudo apt-get update
 sudo apt-get install -y nginx
@@ -22,7 +21,7 @@ server {
     index index.html index.htm;
 
     location /redirect_me {
-        return 301 https://www.frontendmentor.io/;
+        return 301 https://info.cern.ch/;
     }
 
     error_page 404 /404.html;
