@@ -1,15 +1,36 @@
-#!/bin/bash
-# comment here
-set -e
-
-if ! command -v nginx &> /dev/null; then
-	sudo apt update
-	sudo apt install -y nginx
-fi
+#!/usr/bin/env bash
+# Installs Nginx with configurations
 
 NGINX_DEFAULT_CONF="/etc/nginx/sites-available/default"
+WEB_ROOT="/var/www/html"
 
-if ! grep -q "add_header X-Server-By" "$NGINX_DEFAULT_CONF"; then
-	sudo sed -i "/server_name _;/a \\\tadd_header X-Served-By \$hostname;" "$NGINX_DEFAULT_CONF"
+set -e
 
-sudo systemctl restart nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+mkdir -p "$WEB_ROOT"
+echo "Hello World" > "$WEB_ROOT/index.html"
+echo "Ceci n'est pas une page" > "$WEB_ROOT/404.html"
+
+cat <<EOL > "$NGINX_DEFAULT_CONF"
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root $WEB_ROOT;
+    index index.html index.htm;
+
+    location /redirect_me {
+        return 301 https://www.frontendmentor.io/;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+      root $WEB_ROOT;
+      internal;
+    }
+}
+EOL
+
+sudo service nginx restart
