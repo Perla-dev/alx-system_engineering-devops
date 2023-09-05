@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+if ! command -v nginx &> /dev/null; then
+	sudo apt update
+	sudo apt install -y nginx
+fi
+
+NGINX_DEFAULT_CONF="/etc/nginx/sites-available/default"
+
+if ! grep -q "add_header X-Server-By" "$NGINX_DEFAULT_CONF"; then
+	sudo sed -i "/server_name _;/a \\\tadd_header X-Served-By \$hostname;" "$NGINX_DEFAULT_CONF"
+
+sudo systemctl restart nginx
