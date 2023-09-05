@@ -10,10 +10,10 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 mkdir -p "$WEB_ROOT"
-echo "Hello World" > "$WEB_ROOT/index.html"
-echo "Ceci n'est pas une page" > "$WEB_ROOT/404.html"
+echo "Hello World" | sudo tee "$WEB_ROOT/index.html" > /dev/null
+echo "Ceci n'est pas une page" | sudo tee "$WEB_ROOT/404.html" > /dev/null
 
-cat <<EOL > "$NGINX_DEFAULT_CONF"
+cat <<EOL | sudo tee "$NGINX_DEFAULT_CONF" > /dev/null
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
