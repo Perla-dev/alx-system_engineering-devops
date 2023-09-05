@@ -1,4 +1,5 @@
 #!/bin/bash
+# comment here
 set -e
 
 if ! command -v nginx &> /dev/null; then
