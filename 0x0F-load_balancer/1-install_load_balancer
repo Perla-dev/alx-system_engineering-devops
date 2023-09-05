@@ -22,8 +22,8 @@ frontend haproxy_balancer
 
 backend webservers
     balance roundrobin
-    server 26071-web-01 44.210.150.159:80 check
-    server 26071-web-02 35.173.47.15:80 check
+    server 285051-web-01 100.24.242.38:80 check
+    server 285051-web-02 100.24.253.139:80 check
 EOL
 
 	service haproxy restart
