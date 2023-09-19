@@ -8,10 +8,3 @@ file_name="$(date +"%d-%m-%Y").tar.gz"
 
 # Compress the backup
 tar -czvf "$file_name" backup.sql
-
-# Cleanup the raw backup
-rm backup.sql
-
-# Notify the user
-echo "Backup successfully created: $file_name"
-
