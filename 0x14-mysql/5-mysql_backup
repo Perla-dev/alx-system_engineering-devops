@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Backup all MySQL databases
+mysqldump --all-databases -u root --password="$1" > backup.sql
+
+# Generate a timestamped filename
+file_name="$(date +"%d-%m-%Y").tar.gz"
+
+# Compress the backup
+tar -czvf "$file_name" backup.sql
+
+# Cleanup the raw backup
+rm backup.sql
+
+# Notify the user
+echo "Backup successfully created: $file_name"
+
