@@ -14,7 +14,9 @@ if __name__ == "__main__":
         print("Employee ID must be an integer")
         sys.exit(1)
 
-    user_url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
+    user_url = "https://jsonplaceholder.typicode.com/users/{}".format(
+        employee_id
+    )
     todos_url = "https://jsonplaceholder.typicode.com/users/{}/todos".format(
         employee_id
     )
@@ -33,7 +35,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     todos = response.json()
-    done_tasks = [task for task in todos if task.get("completed") == True]
+    done_tasks = [task for task in todos if task.get("completed")]
 
     print(
         "Employee {} is done with tasks({}/{}):".format(
