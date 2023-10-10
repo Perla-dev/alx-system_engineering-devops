@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """ recursivly getting hot topics """
 import requests
-from collections import Counter
 
 
 def count_words(subreddit, word_list, word_count=None, after=None):
+    """ get recur """
     if word_count is None:
-        word_count = Counter()
+        word_count = {}
     if subreddit is None or type(subreddit) is not str:
         return
 
@@ -28,7 +28,7 @@ def count_words(subreddit, word_list, word_count=None, after=None):
                 word = word.lower()
 
                 if word in title:
-                    word_count[word] += 1
+                    word_count[word] = word_count.get(word, 0) + 1
 
         after = data["data"]["after"]
         if after:
