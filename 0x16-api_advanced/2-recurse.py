@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import requests
-
 """ recursivly getting hot topics """
 
 
