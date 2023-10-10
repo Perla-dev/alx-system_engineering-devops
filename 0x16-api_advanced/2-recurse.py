@@ -8,10 +8,9 @@ def recurse(subreddit, hot_list=None, after=None):
         hot_list = []
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "MyCoolReqName/1.0 (by /u/ReplyAdventurous5909)"}
+    headers = {"User-Agent": "Reddit Agent"}
 
     response = requests.get(url, headers=headers, params=after)
-    print(response.status_code, response.json())
     if response.status_code == 200:
         data = response.json()
         children = data["data"]["children"]
