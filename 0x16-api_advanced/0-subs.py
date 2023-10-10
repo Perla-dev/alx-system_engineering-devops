@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" get redit subs """
 import requests
 
 
