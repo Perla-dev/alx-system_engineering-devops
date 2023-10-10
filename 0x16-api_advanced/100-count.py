@@ -1,13 +1,15 @@
 #!/usr/bin/python3
 """ recursivly getting hot topics """
 import requests
+from collections import Counter
 
 
 def count_words(subreddit, word_list, word_count=None, after=None):
     if word_count is None:
-        word_count = {}
+        word_count = Counter()
     if subreddit is None or type(subreddit) is not str:
         return
+
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "MyCoolReqName/1.0 (by /u/ReplyAdventurous5909)"}
 
@@ -26,7 +28,7 @@ def count_words(subreddit, word_list, word_count=None, after=None):
                 word = word.lower()
 
                 if word in title:
-                    word_count[word] = word_count.get(word, 0) + 1
+                    word_count[word] += 1
 
         after = data["data"]["after"]
         if after:
