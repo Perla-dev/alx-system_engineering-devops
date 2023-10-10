@@ -8,7 +8,7 @@ def recurse(subreddit, hot_list=None, after=None):
         hot_list = []
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {"User-Agent": "Sakata gintoki"}
+    headers = {"User-Agent": "MyCoolReqName/1.0 (by /u/ReplyAdventurous5909)"}
 
     params = {
         'after': after
