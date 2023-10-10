@@ -7,7 +7,7 @@ def count_words(subreddit, word_list, word_count=None, after=None):
     if word_count is None:
         word_count = {}
     if subreddit is None or type(subreddit) is not str:
-        return None
+        return
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "MyCoolReqName/1.0 (by /u/ReplyAdventurous5909)"}
 
@@ -38,6 +38,6 @@ def count_words(subreddit, word_list, word_count=None, after=None):
                 print(f"{word}: {count}")
             return
     elif response.status_code == 404:
-        return None
+        return
     else:
-        return None
+        return
